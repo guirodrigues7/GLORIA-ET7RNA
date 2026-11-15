@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glória E7erna • Libertadores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- MODAL DE ENTRADA OBRIGATÓRIA -->
+    <div id="welcome-modal" class="modal-welcome">
+        <div class="welcome-box">
+            <span class="welcome-trophy">🏆</span>
+            <h1>GLÓRIA E7ERNA</h1>
+            <p class="welcome-sub">O DESAFIO DEFINITIVO DA AMÉRICA</p>
+            
+            <div class="welcome-form-group">
+                <label>Nome do seu Clube / Esquadrão *</label>
+                <input type="text" id="welcome-input-name" placeholder="Meu Esquadrão FC" autocomplete="off">
+                <small id="welcome-error" class="error-msg hidden">Por favor, insira o nome do seu time para entrar na Libertadores!</small>
+            </div>
+
+            <div class="welcome-form-group">
+                <label>Escolha o seu Técnico (Com Meta Tática Oculta)</label>
+                <select id="welcome-select-coach" class="coach-select">
+                    <option value="Telê Santana">Telê Santana (Futebol Arte)</option>
+                    <option value="Jorge Jesus">Jorge Jesus (Carrossel Ofensivo)</option>
+                    <option value="Abel Ferreira">Abel Ferreira (Mentalidade Competitiva)</option>
+                    <option value="Marcelo Gallardo">Marcelo Gallardo (Intensidade Máxima)</option>
+                    <option value="Carlos Bianchi">Carlos Bianchi (DNA de Copas)</option>
+                    <option value="Luiz Felipe Scolari">Luiz Felipe Scolari (Família e Solidez)</option>
+                    <option value="Dorival Júnior">Dorival Júnior (Equilíbrio e Conexão)</option>
+                    <option value="Renato Gaúcho">Renato Gaúcho (Ousadia e Alegria)</option>
+                    <option value="Tite">Tite (Organização e Sistema Defensivo)</option>
+                    <option value="Cuca">Cuca (Tática e Cartirada Surpresa)</option>
+                </select>
+            </div>
+
+            <button onclick="salvarConfiguracaoInicial()" class="btn-gold-action">Entrar na Competição ➡️</button>
+        </div>
+    </div>
+
+    <!-- MODAL DO MINI MANUAL DE AJUDA -->
+    <div id="help-modal" class="modal hidden">
+        <div class="modal-content help-content">
+            <div class="modal-header-gold">
+                <span>📚 GUIA DO TREINADOR</span>
+                <h2>Mini Manual da Glória E7erna</h2>
+            </div>
+            <div class="help-body">
+                <h3>🧠 O Impacto dos Técnicos (Metas Ocultas)</h3>
+                <ul>
+                    <li><b>Telê Santana:</b> Bônus ofensivo pesado na criação de jogadas e gols.</li>
+                    <li><b>Jorge Jesus:</b> Pressão sufocante, aumenta muito o volume de ataque.</li>
+                    <li><b>Abel Ferreira:</b> Solidez defensiva e resiliência em jogos difíceis.</li>
+                    <li><b>Marcelo Gallardo:</b> Alta intensidade e gols relâmpago.</li>
+                    <li><b>Carlos Bianchi:</b> DNA de copa: letalidade em mata-matas.</li>
+                    <li><b>Luiz Felipe Scolari:</b> Ferrolho defensivo e raça dos defensores.</li>
+                    <li><b>Dorival Júnior:</b> Sinergia equilibrada em todo o coletivo.</li>
+                    <li><b>Renato Gaúcho:</b> Ousadia total e alta conversão no ataque.</li>
+                    <li><b>Tite:</b> Sistema defensivo intransponível (poucos gols sofridos).</li>
+                    <li><b>Cuca:</b> Cartirada surpresa com bônus táticos dinâmicos.</li>
+                </ul>
+
+                <h3>⚡ Estilos de Jogo</h3>
+                <p><b>Defensivo:</b> Recua as linhas no campo, protege a zaga e diminui gols sofridos. <b>Equilibrado:</b> Padrão. <b>Ofensivo:</b> Adianta o time para pressionar, criando mais chances, mas deixando espaços atrás.</p>
+
+                <h3>🎯 Modos & Dificuldade</h3>
+                <p><b>Sem Filtro:</b> Exibe os Overalls (OVR) dos jogadores para facilitar suas escolhas. <b>Com Filtro:</b> Oculta todos os números de OVR — você precisa montar o time com base na história e no seu conhecimento de futebol!</p>
+            </div>
+            <button onclick="fecharManualAjuda()" class="btn-gold-action" style="margin-top: 15px;">Entendido ✖</button>
+        </div>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- CABEÇALHO -->
+        <header class="top-bar">
+            <div class="brand">
+                <span class="trophy-icon">🏆</span>
+                <div>
+                    <h1>GLÓRIA E7ERNA</h1>
+                    <p class="tagline" id="header-coach-tag">TÉCNICO • META ATIVA</p>
+                </div>
+            </div>
+            <div class="team-badge-header">
+                <span class="team-name-display" id="display-team-name-badge">Meu Esquadrão FC</span>
+                <span class="ovr-pill" id="ovr-header-pill">OVR MÉDIO: <b id="team-ovr-display">--</b></span>
+                <!-- ÍCONE DE AJUDA -->
+                <button class="help-icon-btn" onclick="abrirManualAjuda()" title="Mini Manual de Ajuda">?</button>
+            </div>
+        </header>
+
+        <main class="main-grid">
+            <!-- COLUNA 1: CONFIGURAÇÃO TÁTICA -->
+            <section class="card panel-tactics" id="tactics-panel">
+                <div class="section-block">
+                    <label class="block-label">FORMAÇÃO</label>
+                    <div class="btn-grid-3" id="formation-grid">
+                        <button class="opt-btn active" data-val="4-3-3">4-3-3</button>
+                        <button class="opt-btn" data-val="4-4-2">4-4-2</button>
+                        <button class="opt-btn" data-val="4-2-3-1">4-2-3-1</button>
+                        <button class="opt-btn" data-val="4-2-4">4-2-4</button>
+                        <button class="opt-btn" data-val="3-5-2">3-5-2</button>
+                        <button class="opt-btn" data-val="5-3-2">5-3-2</button>
+                        <button class="opt-btn" data-val="4-5-1">4-5-1</button>
+                        <button class="opt-btn" data-val="3-4-3">3-4-3</button>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <label class="block-label">ESTILO DE JOGO</label>
+                    <div class="btn-grid-2" id="style-grid">
+                        <button class="opt-btn" data-val="Defensivo">Defensivo</button>
+                        <button class="opt-btn active" data-val="Equilibrado">Equilibrado</button>
+                        <button class="opt-btn" data-val="Ofensivo">Ofensivo</button>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <label class="block-label">MODO • DIFICULDADE</label>
+                    <div class="btn-grid-2" id="mode-grid">
+                        <button class="opt-btn active" data-val="Sem filtro">Sem filtro</button>
+                        <button class="opt-btn" data-val="Com filtro">Com filtro</button>
+                    </div>
+                </div>
+
+                <div id="lock-notice" class="lock-notice hidden">
+                    🔒 Tática travada após o início do sorteio.
+                </div>
+            </section>
+
+            <!-- COLUNA 2: ROLETA E ELENCO SORTEADO -->
+            <section class="card panel-draft">
+                <div id="draft-start-box">
+                    <p class="block-label">CONVOCAÇÃO (<span id="count-escalados">0</span>/11)</p>
+                    <h2>Role o dado e convoque seus craques</h2>
+                    <p class="desc-text">Escolha suas posições ao lado e role o dado. O técnico escolhido influenciará silenciosamente o desempenho do seu time nas partidas!</p>
+                    <button id="btn-roll" class="btn-gold-action" onclick="rolarDado()">🎲 Rolar o Dado</button>
+                </div>
+
+                <div id="team-reveal" class="hidden">
+                    <div class="drawn-header">
+                        <div>
+                            <span class="drawn-tag">CLUBE SORTEADO</span>
+                            <h3 id="drawn-team-name">Time</h3>
+                        </div>
+                        <span class="drawn-year" id="drawn-team-year">20XX</span>
+                    </div>
+                    <div id="player-list" class="player-list"></div>
+                </div>
+
+                <div id="sim-ready-box" class="hidden">
+                    <p class="block-label" style="color: #9e7b1c;">ELENCO COMPLETO!</p>
+                    <h2>Seu esquadrão está pronto para a Glória E7erna.</h2>
+                    <button class="btn-gold-action" onclick="iniciarSimulacao()">🏆 Disputar Libertadores</button>
+                </div>
+            </section>
+
+            <!-- COLUNA 3: O CAMPINHO TÁTICO -->
+            <section class="panel-field">
+                <div class="field" id="tactical-field"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL DE SIMULAÇÃO AO VIVO -->
+    <div id="modal-sim" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header-gold">
+                <span>GLÓRIA E7ERNA • LIBERTADORES</span>
+                <h2 id="modal-stage-title">Fase de Grupos</h2>
+            </div>
+            <div id="sim-results-body"></div>
+        </div>
+    </div>
+
+    <script src="times.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
